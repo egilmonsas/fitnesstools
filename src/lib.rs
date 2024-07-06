@@ -12,6 +12,7 @@ pub enum Gender {
 }
 
 pub mod bw_coefficients;
+pub mod estimates;
 
 #[doc(hidden)]
 mod util;

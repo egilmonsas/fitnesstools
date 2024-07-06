@@ -13,3 +13,7 @@ opt-level=0
 
 [profile.release]
 opt-level=3
+
+[dev-dependencies]
+approx = "0.5.1"
+rstest = "0.21.0"

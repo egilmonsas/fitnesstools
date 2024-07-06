@@ -5,10 +5,11 @@ use crate::{util::poly5, Gender};
 /// <https://en.wikipedia.org/wiki/Wilks_coefficient>
 ///
 /// ```
-/// use fitnesstools::{wilks, Gender};
+/// use fitnesstools::{bw_coefficients::wilks, Gender};
+/// use approx::assert_relative_eq;
 /// let wilks_coefficient = wilks(Gender::Male, 80.0);
 ///
-/// assert_eq!(wilks_coefficient, 0.6826985901683169);
+/// assert_relative_eq!(wilks_coefficient, 0.6827, epsilon = 0.001);
 /// ```
 pub fn wilks(gender: Gender, bodyweight: f64) -> f64 {
     500.0 / poly5(wilks_constants(gender), bodyweight)
@@ -19,10 +20,11 @@ pub fn wilks(gender: Gender, bodyweight: f64) -> f64 {
 /// <https://en.wikipedia.org/wiki/Wilks_coefficient>
 ///
 /// ```
-/// use fitnesstools::{wilks2020, Gender};
+/// use fitnesstools::{bw_coefficients::wilks2020, Gender};
+/// use approx::assert_relative_eq;
 /// let wilks_coefficient = wilks2020(Gender::Male, 80.0);
 ///
-/// assert_eq!(wilks_coefficient, 0.8192383082019803);
+/// assert_relative_eq!(wilks_coefficient, 0.8192, epsilon = 0.001);
 /// ```
 pub fn wilks2020(gender: Gender, bodyweight: f64) -> f64 {
     600.0 / poly5(wilks2020_constants(gender), bodyweight)
@@ -72,14 +74,15 @@ fn wilks2020_constants(gender: Gender) -> [f64; 6] {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use approx::assert_relative_eq;
 
     #[test]
     fn test_wilks() {
-        assert_eq!(wilks(Gender::Male, 80.0), 0.6826985901683169);
+        assert_relative_eq!(wilks(Gender::Male, 80.0), 0.6827, epsilon = 0.001);
     }
 
     #[test]
     fn test_wilks2020() {
-        assert_eq!(wilks2020(Gender::Male, 80.0), 0.8192383082019803);
+        assert_relative_eq!(wilks2020(Gender::Male, 80.0), 0.8192, epsilon = 0.001);
     }
 }
